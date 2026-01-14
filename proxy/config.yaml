@@ -1,0 +1,44 @@
+# LiteLLM Proxy 配置文件
+# 使用方法:
+#   litellm --config proxy/config.yaml --port 4000
+
+# 模型列表
+model_list:
+  # 豆包 (Doubao) - 字节跳动
+  - model_name: doubao
+    litellm_params:
+      model: openai/doubao-seed-1-8-251228
+      api_base: https://ark.cn-beijing.volces.com/api/v3
+      api_key: os.environ/ARK_API_KEY
+
+  # DeepSeek Chat - 通用对话
+  - model_name: deepseek-chat
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+      tpm: 100000
+      rpm: 500
+
+  # DeepSeek Reasoner - 推理模型
+  - model_name: deepseek-reasoner
+    litellm_params:
+      model: deepseek/deepseek-reasoner
+      api_key: os.environ/DEEPSEEK_API_KEY
+      tpm: 100000
+      rpm: 500
+
+# 通用设置
+general_settings:
+  master_key: sk-litellm-proxy-key
+
+# 路由设置
+router_settings:
+  routing_strategy: simple-shuffle
+  num_retries: 2
+  timeout: 30
+
+# Litellm 设置
+litellm_settings:
+  drop_params: true
+  set_verbose: false
+
